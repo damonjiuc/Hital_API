@@ -4,7 +4,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 class Base(DeclarativeBase):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    created_at: Mapped[DateTime] = mapped_column(DateTime, default=func.utcnow())
+    created_at: Mapped[DateTime] = mapped_column(DateTime, default=func.now())
 
 
 class Question(Base):
@@ -26,7 +26,7 @@ class Answer(Base):
     user_id: Mapped[str] = mapped_column(String, nullable=False)
     text: Mapped[str] = mapped_column(String, nullable=False)
 
-    question: Mapped["Question"] = relationship(
+    question: Mapped['Question'] = relationship(
         'Question',
         back_populates='answers'
     )

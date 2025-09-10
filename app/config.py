@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     DB_NAME: str
 
     debug: bool = True
+    log_level: str = 'INFO'
 
     @property
     def database_url(self) -> str:

@@ -1,34 +1,34 @@
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict
+from typing import List
 
 
-class QuestionBase(BaseModel):
+class QuestionCreate(BaseModel):
     text: str
 
 
-class QuestionCreate(QuestionBase):
-    pass
-
-
-class QuestionRead(QuestionBase):
+class QuestionRead(BaseModel):
     id: int
+    text: str
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
 
 
-class AnswerBase(BaseModel):
-    question_id: int
+class AnswerCreate(BaseModel):
     user_id: str
     text: str
 
 
-class AnswerCreate(AnswerBase):
-    pass
-
-
-class AnswerRead(AnswerBase):
+class AnswerRead(BaseModel):
     id: int
+    question_id: int
+    user_id: str
+    text: str
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class QuestionWithAnswersRead(QuestionRead):
+    answers: List[AnswerRead] = []
